@@ -2,7 +2,7 @@ use fnv::FnvHasher;
 use std::hash::{Hash, Hasher};
 
 #[derive(Debug)]
-struct Bloom {
+pub struct Bloom {
     filter: Vec<u64>,
 }
 
@@ -33,7 +33,7 @@ impl Bloom {
         fnv.finish()
     }
 
-    fn contains_maybe<T: Hash>(&self, item: T) -> bool {
+    pub fn contains_maybe<T: Hash>(&self, item: T) -> bool {
         let hash = Self::compute_hash(item);
         let n = self.filter.len() as u64;
         let index = hash % (n << 3);
